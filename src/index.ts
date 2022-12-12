@@ -23,8 +23,12 @@ const start = async () => {
 		// 		},
 		// 	},
 		// });
-		const allUsers = await prisma.user.findMany();
-		console.log(allUsers);
+		const allUsers = await prisma.user.findMany({
+			include: {
+				counts: true,
+			},
+		});
+		console.dir(allUsers, { depth: null });
 	};
 
 	queryTest()
