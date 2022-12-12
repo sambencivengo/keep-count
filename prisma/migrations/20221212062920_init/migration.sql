@@ -6,7 +6,7 @@ CREATE TABLE "Count" (
     "title" VARCHAR(255) NOT NULL,
     "value" INTEGER NOT NULL DEFAULT 0,
     "userId" INTEGER NOT NULL,
-    "groupId" INTEGER NOT NULL,
+    "groupId" INTEGER,
 
     CONSTRAINT "Count_pkey" PRIMARY KEY ("id")
 );
@@ -42,7 +42,7 @@ CREATE UNIQUE INDEX "User_userName_key" ON "User"("userName");
 ALTER TABLE "Count" ADD CONSTRAINT "Count_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Count" ADD CONSTRAINT "Count_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Count" ADD CONSTRAINT "Count_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Group" ADD CONSTRAINT "Group_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
