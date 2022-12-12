@@ -1,6 +1,5 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +7,37 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Count {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  value   Int        @default(0)
+  user    User     @relation(fields: [userId], references: [id])
+  userId  Int
+  group    Group     @relation(fields: [groupId], references: [id])
+  groupId  Int
+}
+
+model Group {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  user    User     @relation(fields: [userId], references: [id])
+  userId  Int
+  counts   Count[]
+}
+
+
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email    String   @unique
+  userName String @unique
+  password String
+  counts   Count[]
+  groups Group[]
 }
