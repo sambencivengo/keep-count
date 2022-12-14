@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
 
@@ -23,6 +24,7 @@ const start = async () => {
 		// 		},
 		// 	},
 		// });
+
 		const allUsers = await prisma.user.findMany({
 			include: {
 				counts: true,
