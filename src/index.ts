@@ -15,11 +15,11 @@ const start = async () => {
 	const queryTest = async () => {
 		// await prisma.user.create({
 		// 	data: {
-		// 		userName: 'sam',
-		// 		email: 'sam@prisma.io',
+		// 		userName: 'sam2',
+		// 		email: 'sam2@prisma.io',
 		// 		password: 'password',
 		// 		counts: {
-		// 			create: { title: 'asdasd' },
+		// 			create: { title: 'burgers eaten' },
 		// 		},
 		// 	},
 		// });
