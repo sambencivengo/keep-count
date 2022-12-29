@@ -1,12 +1,13 @@
 import 'reflect-metadata';
-import { PrismaClient } from '@prisma/client';
 import express from 'express';
+import { connectDb, prisma } from './prismaClient';
 
 const PORT = process.env.PORT ?? 8000;
-const prisma = new PrismaClient();
 
 const start = async () => {
 	const app = express();
+
+	await connectDb();
 
 	app.get('/', (_, res) => {
 		res.send('Hello World');
@@ -48,4 +49,11 @@ const start = async () => {
 		console.log(`Application is listening on port ${PORT}`);
 	});
 };
-start();
+start()
+	.catch((e) => {
+		console.error(e);
+		process.exit(1);
+	})
+	.finally(async () => {
+		await prisma.$disconnect();
+	});
