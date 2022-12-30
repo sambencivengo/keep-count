@@ -8,13 +8,11 @@ const PORT = process.env.PORT ?? 8000;
 const start = async () => {
 	const app = express();
 
+	app.use(express.json());
 	await connectDb();
 
+	// All api routes
 	app.use('/api', api);
-
-	app.get('/', (_, res) => {
-		res.send('Hello World');
-	});
 
 	app.listen(PORT, () => {
 		console.log(`Application is listening on port ${PORT}`);
