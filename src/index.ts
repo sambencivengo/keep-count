@@ -1,15 +1,39 @@
 import 'reflect-metadata';
+import * as dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import { connectDb, prisma } from './prismaClient';
 import { api } from './api';
+import createMemoryStore from 'memorystore';
+import session from 'express-session';
 
+const MemoryStore = createMemoryStore(session);
 const PORT = process.env.PORT ?? 8000;
 
 const start = async () => {
 	const app = express();
 
 	app.use(express.json());
+
 	await connectDb();
+
+	app.use(
+		session({
+			store: new MemoryStore({
+				checkPeriod: 86400000,
+			}),
+			name: 'keep-count-cookie',
+			cookie: {
+				maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
+				httpOnly: true,
+				sameSite: 'lax', // csrf
+				secure: false, // TODO: switch to constant
+			},
+			saveUninitialized: false,
+			secret: 'cookiesecret', // TODO: switch to env var
+			resave: true,
+		})
+	);
 
 	app.get('/', (_, res) => {
 		res.send('Hello World');
