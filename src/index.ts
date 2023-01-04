@@ -11,6 +11,10 @@ const start = async () => {
 	app.use(express.json());
 	await connectDb();
 
+	app.get('/', (_, res) => {
+		res.send('Hello World');
+	});
+
 	// All api routes
 	app.use('/api', api);
 
