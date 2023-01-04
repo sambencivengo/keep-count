@@ -15,10 +15,11 @@ export const post: Handler = async (req, res) => {
 			},
 		});
 
+		req.session.user = newUser.id;
+
 		res.send(newUser);
 	} catch (error) {
 		res.status(500).send(`Unable to create new user: ${error}`);
 		return;
 	}
-	res.send('users post');
 };

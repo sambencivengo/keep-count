@@ -13,8 +13,6 @@ const PORT = process.env.PORT ?? 8000;
 const start = async () => {
 	const app = express();
 
-	app.use(express.json());
-
 	await connectDb();
 
 	app.use(
@@ -35,9 +33,7 @@ const start = async () => {
 		})
 	);
 
-	app.get('/', (_, res) => {
-		res.send('Hello World');
-	});
+	app.use(express.json());
 
 	// All api routes
 	app.use('/api', api);
