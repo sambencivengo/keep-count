@@ -1,7 +1,9 @@
 import { Handler } from 'express';
 
-export const put: Handler = async (req, res) => {
+export const put: Handler = (req, res) => {
 	const { countId } = req.params;
 
-	res.send(countId);
+	console.log(req.session);
+
+	res.send({ countId });
 };

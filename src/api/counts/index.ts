@@ -5,6 +5,6 @@ import { countId } from './[countId]';
 
 export const counts = Router({ mergeParams: true });
 
+counts.use('/:countId', countId);
 counts.get('', get);
 counts.post('', post);
-counts.use('/:countId', countId);
