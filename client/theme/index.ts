@@ -1,8 +1,12 @@
 import { DeepPartial, extendTheme, Theme, ThemeConfig } from '@chakra-ui/react';
-import { mode, GlobalStyleProps } from '@chakra-ui/theme-tools';
+import {
+	mode,
+	GlobalStyleProps,
+	SystemStyleFunction,
+} from '@chakra-ui/theme-tools';
 
 const config: ThemeConfig = {
-	initialColorMode: 'light',
+	initialColorMode: 'system',
 	useSystemColorMode: true,
 };
 
@@ -17,13 +21,13 @@ export const colors = {
 export const theme = extendTheme({
 	...config,
 	styles: {
-		global: (props: GlobalStyleProps) => ({
+		global: (props: SystemStyleFunction) => ({
 			body: {
 				backgroundColor: mode(
-					colors.darkBlueGrey,
-					colors.lightGrey
+					colors.lightGrey,
+					colors.darkBlueGrey
 				)(props),
-				color: mode(colors.lightGrey, colors.darkBlueGrey)(props),
+				color: mode(colors.darkBlueGrey, colors.lightGrey)(props),
 			},
 			'::-webkit-scrollbar': { display: 'none' },
 		}),
