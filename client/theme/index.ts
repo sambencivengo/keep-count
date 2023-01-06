@@ -1,9 +1,5 @@
 import { DeepPartial, extendTheme, Theme, ThemeConfig } from '@chakra-ui/react';
-import {
-	mode,
-	GlobalStyleProps,
-	SystemStyleFunction,
-} from '@chakra-ui/theme-tools';
+import { mode, StyleFunctionProps } from '@chakra-ui/theme-tools';
 
 const config: ThemeConfig = {
 	initialColorMode: 'system',
@@ -21,7 +17,7 @@ export const colors = {
 export const theme = extendTheme({
 	...config,
 	styles: {
-		global: (props: SystemStyleFunction) => ({
+		global: (props: StyleFunctionProps) => ({
 			body: {
 				backgroundColor: mode(
 					colors.lightGrey,
