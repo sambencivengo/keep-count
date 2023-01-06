@@ -3,17 +3,13 @@ import { prisma } from '../../../prismaClient';
 
 export const get: Handler = async (req, res) => {
 	const { countId } = req.params;
-
-	if (!req.session.user) {
-		res.status(403).send('Must have an account to get counts');
-		return;
-	}
+	console.log('in :/countId get', { user: req.session.user });
 
 	try {
 		const count = await prisma.count.findFirst({
 			where: {
 				id: Number(countId),
-				userId: req.session.user,
+				userId: req.user.id,
 			},
 		});
 
@@ -21,6 +17,8 @@ export const get: Handler = async (req, res) => {
 			res.status(400).send('Unable to get count');
 			return;
 		}
+
+		res.send(count);
 	} catch (error) {
 		res.status(500).send(`Unable to get count: ${error}`);
 		return;
