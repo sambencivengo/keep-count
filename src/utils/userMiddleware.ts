@@ -12,7 +12,7 @@ export const userMiddleware: Handler = async (req, res, next) => {
 		});
 
 		if (!user) {
-			res.status(400).send('Unable to create a new count');
+			res.status(400).send('Unable to find valid user account');
 			return;
 		}
 
