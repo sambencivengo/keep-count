@@ -8,6 +8,8 @@ export const post: Handler = async (req, res) => {
 	const hashedPassword = await argon2.hash(password);
 
 	try {
+		console.log(req.session);
+
 		const newUser = await prisma.user.create({
 			data: {
 				username: (username as string).toLowerCase(),
@@ -17,6 +19,7 @@ export const post: Handler = async (req, res) => {
 
 		req.session.user = newUser.id;
 
+		console.log(req.session);
 		res.send(newUser);
 	} catch (error) {
 		res.status(500).send(`Unable to create new user: ${error}`);

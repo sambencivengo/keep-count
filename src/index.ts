@@ -19,6 +19,7 @@ const start = async () => {
 	app.use(
 		cors<cors.CorsRequest>({
 			origin: ['http://localhost:3000'],
+			credentials: true,
 		})
 	);
 

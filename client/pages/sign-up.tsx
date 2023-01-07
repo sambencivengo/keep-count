@@ -28,7 +28,7 @@ const SignUp: NextPage = () => {
 
 						console.log(args);
 
-						const res = await fetch(`${baseUrl}/api/users`, {
+						const res = await fetch(`${baseUrl}api/users`, {
 							method: 'POST',
 							headers: {
 								'content-type': 'application/json',
@@ -44,10 +44,6 @@ const SignUp: NextPage = () => {
 							variant: 'solid',
 							duration: 4000,
 							isClosable: true,
-							containerStyle: {
-								border: `3px solid ${colors.darkBlueGrey}`,
-								background: colors.lightGrey,
-							},
 							position: 'top',
 						});
 
