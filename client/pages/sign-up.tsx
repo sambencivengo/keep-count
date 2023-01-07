@@ -34,6 +34,7 @@ const SignUp: NextPage = () => {
 								'content-type': 'application/json',
 							},
 							body: JSON.stringify(args),
+							credentials: 'include',
 						});
 
 						await res.json();
