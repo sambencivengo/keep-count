@@ -16,6 +16,19 @@ export const colors = {
 
 export const theme = extendTheme({
 	...config,
+	components: {
+		Button: {
+			variants: {
+				solid: () => ({
+					bg: colors.deepRed,
+					color: colors.lightGrey,
+					_hover: {
+						bg: colors.midBlueGrey,
+					},
+				}),
+			},
+		},
+	},
 	styles: {
 		global: (props: StyleFunctionProps) => ({
 			body: {
