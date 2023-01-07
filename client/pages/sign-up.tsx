@@ -50,7 +50,7 @@ const SignUp: NextPage = () => {
 
 						if (!res.ok) {
 							const errCodeMsg = `(Error Code: ${res.status})`;
-							// TODO: use toast for request errors across the app
+							console.log(`Unable to sign up: ${errCodeMsg}`);
 							setIsLoading(false);
 							return;
 						}
