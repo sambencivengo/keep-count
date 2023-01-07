@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Heading, Text, useToast, VStack } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
 import { NextPage } from 'next';
 import React from 'react';
@@ -9,7 +9,7 @@ import { colors } from '../theme';
 
 const SignUp: NextPage = () => {
 	const [isLoading, setIsLoading] = React.useState(false);
-
+	const toast = useToast();
 	return (
 		<>
 			<Heading>Sign Up</Heading>
@@ -28,23 +28,35 @@ const SignUp: NextPage = () => {
 
 						console.log(args);
 
-						// const res = await fetch(`${baseUrl}/api/users`, {
-						// 	method: 'POST',
-						// 	headers: {
-						// 		'content-type': 'application/json',
-						// 	},
-						// 	body: JSON.stringify(args),
-						// });
+						const res = await fetch(`${baseUrl}/api/users`, {
+							method: 'POST',
+							headers: {
+								'content-type': 'application/json',
+							},
+							body: JSON.stringify(args),
+						});
 
-						// await res.json();
-						// setIsLoading(false);
+						await res.json();
+						setIsLoading(false);
+						toast({
+							description: 'Sign up successful!',
+							status: 'success',
+							variant: 'solid',
+							duration: 4000,
+							isClosable: true,
+							containerStyle: {
+								border: `3px solid ${colors.darkBlueGrey}`,
+								background: colors.lightGrey,
+							},
+							position: 'top',
+						});
 
-						// if (!res.ok) {
-						// 	const errCodeMsg = `(Error Code: ${res.status})`;
-						// 	// TODO: use toast for request errors across the app
-						// 	setIsLoading(false);
-						// 	return;
-						// }
+						if (!res.ok) {
+							const errCodeMsg = `(Error Code: ${res.status})`;
+							// TODO: use toast for request errors across the app
+							setIsLoading(false);
+							return;
+						}
 					}}
 				>
 					{({ isSubmitting }) => (

@@ -6,6 +6,7 @@ import { connectDb, prisma } from './prismaClient';
 import { api } from './api';
 import createMemoryStore from 'memorystore';
 import session from 'express-session';
+import cors from 'cors';
 
 const MemoryStore = createMemoryStore(session);
 const PORT = process.env.PORT ?? 8000;
@@ -14,6 +15,12 @@ const start = async () => {
 	const app = express();
 
 	await connectDb();
+
+	app.use(
+		cors<cors.CorsRequest>({
+			origin: ['http://localhost:3000'],
+		})
+	);
 
 	app.use(
 		session({
