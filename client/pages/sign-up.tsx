@@ -6,10 +6,11 @@ import { InputField } from '../components/InputField';
 import { baseUrl } from '../constants';
 import { CreateUserSchema } from '../schema';
 import { colors } from '../theme';
+import { useUser } from '../components/UserProvider';
 
 const SignUp: NextPage = () => {
-	const [isLoading, setIsLoading] = React.useState(false);
 	const toast = useToast();
+	const { signUp, isLoading } = useUser();
 	return (
 		<>
 			<Heading>Sign Up</Heading>
@@ -24,21 +25,8 @@ const SignUp: NextPage = () => {
 					initialValues={{ username: '', password: '' }}
 					validationSchema={CreateUserSchema.uiSchema}
 					onSubmit={async (args) => {
-						setIsLoading(true);
+						const success = await signUp(args);
 
-						console.log(args);
-
-						const res = await fetch(`${baseUrl}api/users`, {
-							method: 'POST',
-							headers: {
-								'content-type': 'application/json',
-							},
-							body: JSON.stringify(args),
-							credentials: 'include',
-						});
-
-						await res.json();
-						setIsLoading(false);
 						toast({
 							description: 'Sign up successful!',
 							status: 'success',
@@ -48,10 +36,15 @@ const SignUp: NextPage = () => {
 							position: 'top',
 						});
 
-						if (!res.ok) {
-							const errCodeMsg = `(Error Code: ${res.status})`;
-							console.log(`Unable to sign up: ${errCodeMsg}`);
-							setIsLoading(false);
+						if (!success) {
+							toast({
+								description: 'There was a problem signing up',
+								status: 'error',
+								variant: 'solid',
+								duration: 4000,
+								isClosable: true,
+								position: 'top',
+							});
 							return;
 						}
 					}}
