@@ -59,11 +59,16 @@ const SignUp: NextPage = () => {
 					{({ isSubmitting }) => (
 						<Form>
 							<VStack spacing={10}>
-								<InputField label="Username" name="username" />
+								<InputField
+									label="Username"
+									name="username"
+									isRequired={true}
+								/>
 								<InputField
 									type="password"
 									label="Password"
 									name="password"
+									isRequired={true}
 								/>
 								<Button isLoading={isSubmitting} type="submit">
 									Submit

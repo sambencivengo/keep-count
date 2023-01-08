@@ -10,7 +10,7 @@ export const colors = {
 	darkBlueGrey: '#2B2D42',
 	midBlueGrey: '#8D99AE',
 	lightGrey: '#EDF2F4',
-	candyRed: '#EF233C',
+	orange: '#f77f00',
 	deepRed: '#D90429',
 };
 
@@ -20,12 +20,24 @@ export const theme = extendTheme({
 		Button: {
 			variants: {
 				solid: () => ({
-					bg: colors.deepRed,
+					bg: colors.orange,
 					color: colors.lightGrey,
 					_hover: {
 						bg: colors.midBlueGrey,
 					},
 				}),
+			},
+		},
+		Input: {
+			variants: {
+				filled: {
+					field: {
+						_focus: {
+							borderColor: colors.orange,
+						},
+						borderColor: colors.darkBlueGrey,
+					},
+				},
 			},
 		},
 	},
