@@ -16,11 +16,9 @@ export const userMiddleware: Handler = async (req, res, next) => {
 			return;
 		}
 
-		req.user = user;
-		console.log('before next');
+		req.user = { username: user.username, id: user.id };
 
 		next();
-		console.log('after next');
 	} catch (error) {
 		res.status(500).send(
 			`An error occurred while validating the user: ${error}`

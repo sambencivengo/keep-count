@@ -3,8 +3,6 @@ import { Inter } from '@next/font/google';
 import { Heading, VStack } from '@chakra-ui/react';
 import { useUser } from '../components/UserProvider';
 
-const inter = Inter({ subsets: ['latin'] });
-
 export default function Home() {
 	const { user } = useUser();
 	return (

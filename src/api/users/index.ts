@@ -1,10 +1,14 @@
 import { Router } from 'express';
 import { post } from './post';
 import { login } from './login';
-import { userId } from './[userId]';
+
+import { me } from './me';
+import { userMiddleware } from '../../utils/userMiddleware';
 
 export const users = Router({ mergeParams: true });
 
 users.post('/', post);
 users.post('/login', login);
-users.use('/:userId', userId);
+
+users.use(userMiddleware);
+users.get('/me', me);
