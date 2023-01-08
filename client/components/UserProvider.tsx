@@ -17,4 +17,13 @@ const UserContext = React.createContext<UserContextData>({
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	const [isLoading, setIsLoading] = React.useState(true);
+	const [user, setUser] = React.useState<User | null>(null);
+
+	return (
+		<UserContext.Provider value={{ user, isLoading }}>
+			{children}
+		</UserContext.Provider>
+	);
 };
+
+export const useUser = () => React.useContext(UserContext);
