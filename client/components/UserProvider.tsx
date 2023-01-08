@@ -18,18 +18,20 @@ interface UserContextData {
 
 const UserContext = React.createContext<UserContextData>({
 	user: null,
-	isLoading: true,
+	isLoading: false,
 	signUp: async () => false,
 });
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-	const [isLoading, setIsLoading] = React.useState(true);
+	const [isLoading, setIsLoading] = React.useState(false);
 	const [user, setUser] = React.useState<User | null>(null);
 
 	const signUp = async ({
 		username,
 		password,
 	}: SignUpArgs): Promise<boolean> => {
+		setIsLoading(true);
+
 		try {
 			const res = await fetch(`${baseUrl}api/users`, {
 				method: 'POST',

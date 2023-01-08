@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Text, useToast, VStack } from '@chakra-ui/react';
+import { Box, Button, Heading, useToast, VStack } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
 import { NextPage } from 'next';
 import React from 'react';
@@ -7,10 +7,13 @@ import { baseUrl } from '../constants';
 import { CreateUserSchema } from '../schema';
 import { colors } from '../theme';
 import { useUser } from '../components/UserProvider';
+import { useRouter } from 'next/router';
 
 const SignUp: NextPage = () => {
 	const toast = useToast();
-	const { signUp, isLoading } = useUser();
+	const { signUp } = useUser();
+	const router = useRouter();
+
 	return (
 		<>
 			<Heading>Sign Up</Heading>
@@ -35,6 +38,8 @@ const SignUp: NextPage = () => {
 							isClosable: true,
 							position: 'top',
 						});
+
+						router.push('/');
 
 						if (!success) {
 							toast({

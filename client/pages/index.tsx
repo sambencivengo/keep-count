@@ -1,9 +1,12 @@
 import Head from 'next/head';
 import { Inter } from '@next/font/google';
+import { Heading, VStack } from '@chakra-ui/react';
+import { useUser } from '../components/UserProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+	const { user } = useUser();
 	return (
 		<>
 			<Head>
@@ -19,7 +22,10 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main>
-				<header>Hello</header>
+				<VStack>
+					<Heading>This is the home page of the application</Heading>
+					<Heading size="md">Welcome {user?.username}</Heading>
+				</VStack>
 			</main>
 		</>
 	);
