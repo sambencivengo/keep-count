@@ -1,12 +1,11 @@
 import { User } from '@prisma/client';
 import { type } from 'os';
-
-type UserOnRequest = Omit<User, 'password'>;
+import { UserDTO } from './User';
 
 declare global {
 	namespace Express {
 		export interface Request {
-			user: UserOnRequest;
+			user: UserDTO;
 		}
 	}
 }

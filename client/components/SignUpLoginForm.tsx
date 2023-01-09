@@ -4,8 +4,9 @@ import {
 	Button,
 	Box,
 	useToast,
-	Link as ChakraLink,
+	Link,
 	Center,
+	useColorModeValue,
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import router from 'next/router';
@@ -14,7 +15,7 @@ import { InputField } from './InputField';
 import { useUser } from './UserProvider';
 import { CreateUserSchema } from '../schema';
 import { colors } from '../theme';
-import Link from 'next/link';
+import * as NextLink from 'next/link';
 
 interface SignUpLoginFormProps {
 	formPurpose: 'signUp' | 'login';
@@ -34,7 +35,10 @@ export const SignUpLoginForm: React.FC<SignUpLoginFormProps> = ({
 				pt={20}
 				px={20}
 				rounded={'md'}
-				border={`3px solid ${colors.darkBlueGrey}`}
+				border={`3px solid ${useColorModeValue(
+					colors.darkBlueGrey,
+					colors.lightGrey
+				)}`}
 			>
 				<Formik
 					validateOnChange={false}
@@ -99,17 +103,13 @@ export const SignUpLoginForm: React.FC<SignUpLoginFormProps> = ({
 					)}
 				</Formik>
 				<Center mt="50px" pb="5px">
-					<ChakraLink>
-						<Link
-							href={
-								formPurpose === 'login' ? '/sign-up' : '/login'
-							}
-						>
-							{formPurpose === 'login'
-								? 'Need to sign up?'
-								: 'Already have an account?'}
-						</Link>
-					</ChakraLink>
+					<Link
+						href={formPurpose === 'login' ? '/sign-up' : '/login'}
+					>
+						{formPurpose === 'login'
+							? 'Need to sign up?'
+							: 'Already have an account?'}
+					</Link>
 				</Center>
 			</Box>
 		</>
