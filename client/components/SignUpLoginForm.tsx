@@ -30,11 +30,9 @@ export const SignUpLoginForm: React.FC<SignUpLoginFormProps> = ({
 
 	return (
 		<>
-			{/* // TODO: change with function */}
 			<Heading>{formPurpose === 'login' ? 'Log In' : 'Sign Up'}</Heading>
 			<Box
 				pt={20}
-				w={[250, 300, 500]}
 				px={[5, 10, 20]}
 				rounded={'md'}
 				border={`3px solid ${useColorModeValue(

@@ -3,13 +3,12 @@ import { prisma } from '../../../prismaClient';
 
 export const get: Handler = async (req, res) => {
 	const { countId } = req.params;
-	console.log('in :/countId get', { user: req.session.user });
 
 	try {
 		const count = await prisma.count.findFirst({
 			where: {
 				id: Number(countId),
-				userId: req.user.id,
+				userId: req.session.user,
 			},
 		});
 

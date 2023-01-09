@@ -7,7 +7,7 @@ interface LayoutProps {
 export const Layout = ({ children }: LayoutProps) => (
 	<>
 		<NavBar />
-		<Center p={20}>
+		<Center px={10} pt={20}>
 			<main>{children}</main>
 		</Center>
 	</>
