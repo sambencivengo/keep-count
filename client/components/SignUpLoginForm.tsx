@@ -7,6 +7,7 @@ import {
 	Link,
 	Center,
 	useColorModeValue,
+	useBreakpointValue,
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import router from 'next/router';
@@ -33,7 +34,8 @@ export const SignUpLoginForm: React.FC<SignUpLoginFormProps> = ({
 			<Heading>{formPurpose === 'login' ? 'Log In' : 'Sign Up'}</Heading>
 			<Box
 				pt={20}
-				px={20}
+				w={[250, 300, 500]}
+				px={[5, 10, 20]}
 				rounded={'md'}
 				border={`3px solid ${useColorModeValue(
 					colors.darkBlueGrey,
