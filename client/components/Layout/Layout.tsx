@@ -1,5 +1,5 @@
 import { Center } from '@chakra-ui/react';
-import NavBar from './NavBar';
+import { NavBar } from './NavBar';
 
 interface LayoutProps {
 	children: React.ReactNode;

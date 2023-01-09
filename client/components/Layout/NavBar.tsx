@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import {
 	Box,
 	Flex,
@@ -15,7 +14,6 @@ import {
 	Center,
 	Heading,
 	useToast,
-	IconButton,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { colors } from '../../theme';
@@ -23,7 +21,7 @@ import { useUser } from '../UserProvider';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-export default function NavBar() {
+export const NavBar: React.FC = () => {
 	const { user, logout } = useUser();
 	const { colorMode, toggleColorMode } = useColorMode();
 	const router = useRouter();
@@ -75,18 +73,14 @@ export default function NavBar() {
 					</Box>
 
 					<Flex alignItems={'center'}>
-						<Stack direction={'row'} spacing={2}>
-							<IconButton
-								icon={
-									colorMode === 'light' ? (
-										<MoonIcon />
-									) : (
-										<SunIcon />
-									)
-								}
-								aria-label="Color Mode Toggle"
-								onClick={toggleColorMode}
-							/>
+						<Stack direction={'row'} spacing={7}>
+							<Button onClick={toggleColorMode}>
+								{colorMode === 'light' ? (
+									<MoonIcon />
+								) : (
+									<SunIcon />
+								)}
+							</Button>
 
 							<Menu>
 								<MenuButton
@@ -96,10 +90,7 @@ export default function NavBar() {
 									cursor={'pointer'}
 									minW={0}
 								>
-									<IconButton
-										aria-label="Menu Button"
-										icon={<HamburgerIcon />}
-									/>
+									<Icon as={HamburgerIcon} />
 								</MenuButton>
 								<MenuList alignItems={'center'}>
 									{user ? (
@@ -143,4 +134,4 @@ export default function NavBar() {
 			</Box>
 		</>
 	);
-}
+};
