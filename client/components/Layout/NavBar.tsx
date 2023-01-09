@@ -14,6 +14,7 @@ import {
 	Icon,
 	Center,
 	Heading,
+	useToast,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { colors } from '../../theme';
@@ -22,9 +23,33 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 export default function NavBar() {
-	const { user } = useUser();
+	const { user, logout } = useUser();
 	const { colorMode, toggleColorMode } = useColorMode();
 	const router = useRouter();
+	const toast = useToast();
+
+	const logoutUser = async () => {
+		const success = await logout();
+		toast({
+			description: 'Come back soon!',
+			status: 'success',
+			variant: 'solid',
+			duration: 4000,
+			isClosable: true,
+			position: 'top',
+		});
+		router.push('/login');
+		if (!success) {
+			toast({
+				description: 'Unable to log out',
+				status: 'error',
+				variant: 'solid',
+				duration: 4000,
+				isClosable: true,
+				position: 'top',
+			});
+		}
+	};
 
 	return (
 		<>
@@ -80,6 +105,9 @@ export default function NavBar() {
 											<MenuItem>Counts</MenuItem>
 											<MenuItem>Groups</MenuItem>
 											<MenuItem>New Count</MenuItem>
+											<MenuItem onClick={logoutUser}>
+												Log out
+											</MenuItem>
 										</>
 									) : (
 										<>

@@ -15,6 +15,7 @@ interface UserContextData {
 	user: User | null;
 	signUp: (a: LoginAndSignUpArgs) => Promise<boolean>;
 	login: (a: LoginAndSignUpArgs) => Promise<boolean>;
+	logout: () => Promise<boolean>;
 }
 
 const UserContext = React.createContext<UserContextData>({
@@ -22,6 +23,7 @@ const UserContext = React.createContext<UserContextData>({
 	isLoading: false,
 	signUp: async () => false,
 	login: async () => false,
+	logout: async () => false,
 });
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
@@ -85,6 +87,17 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 		}
 	};
 
+	const logout = async (): Promise<boolean> => {
+		try {
+			await fetch(`${baseUrl}/api/users`, { method: 'DELETE' });
+			getMe();
+			return true;
+		} catch (error) {
+			console.error('error');
+			return false;
+		}
+	};
+
 	const signUp = async ({
 		username,
 		password,
@@ -120,7 +133,9 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	};
 
 	return (
-		<UserContext.Provider value={{ signUp, login, user, isLoading }}>
+		<UserContext.Provider
+			value={{ signUp, logout, login, user, isLoading }}
+		>
 			{children}
 		</UserContext.Provider>
 	);
