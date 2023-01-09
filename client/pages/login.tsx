@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import React from 'react';
 import { SignUpLoginForm } from '../components/SignUpLoginForm';
 
-const SignUp: NextPage = () => {
-	return <SignUpLoginForm formPurpose="signUp" />;
+const Login: NextPage = () => {
+	return <SignUpLoginForm formPurpose="login" />;
 };
-export default SignUp;
+export default Login;

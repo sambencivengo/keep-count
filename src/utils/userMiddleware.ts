@@ -16,7 +16,7 @@ export const userMiddleware: Handler = async (req, res, next) => {
 			return;
 		}
 
-		req.user = { username: user.username, id: user.id };
+		req.user = { username: user.username, id: user.id }; // TODO: types folder
 
 		next();
 	} catch (error) {
