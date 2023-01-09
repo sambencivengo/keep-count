@@ -41,8 +41,6 @@ export default function Home() {
 		getCounts();
 	}, []);
 
-	console.log(counts);
-
 	return (
 		<>
 			<Head>
@@ -58,10 +56,8 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main>
-				<VStack>
-					<Heading>This is the home page of the application</Heading>
-					<Heading size="md">Welcome {user?.username}</Heading>
-					<Box>Count</Box>
+				<VStack gap={5}>
+					<Heading>Your Counts:</Heading>
 					<Wrap spacing={10} justify="center">
 						{counts &&
 							counts.map((count) => (
