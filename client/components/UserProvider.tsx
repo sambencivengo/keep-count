@@ -28,27 +28,28 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [user, setUser] = React.useState<User | null>(null);
 
-	React.useEffect(() => {
-		getMe();
-	}, []);
-
 	const getMe = async (): Promise<void> => {
 		try {
 			const res = await fetch(`${baseUrl}api/users/me`, {
 				method: 'GET',
 				credentials: 'include',
 			});
-			const data = await res.json();
-			setUser(data);
 
 			if (!res.ok) {
 				setUser(null);
 			}
+
+			const data = await res.json();
+			setUser(data);
 		} catch (error) {
 			setUser(null);
 			console.error(error);
 		}
 	};
+
+	React.useEffect(() => {
+		getMe();
+	}, []);
 
 	const login = async ({
 		username,

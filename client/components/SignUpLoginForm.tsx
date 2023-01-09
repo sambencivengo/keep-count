@@ -48,9 +48,8 @@ export const SignUpLoginForm: React.FC<SignUpLoginFormProps> = ({
 					onSubmit={async (args) => {
 						const success =
 							formPurpose === 'login'
-								? await signUp(args)
-								: await login(args);
-
+								? await login(args)
+								: await signUp(args);
 						toast({
 							description: `${
 								formPurpose === 'login' ? 'Log in' : 'Sign up'

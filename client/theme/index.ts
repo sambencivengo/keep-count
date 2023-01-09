@@ -35,7 +35,10 @@ export const theme = extendTheme({
 						_focus: {
 							borderColor: colors.orange,
 						},
-						borderColor: colors.darkBlueGrey,
+						borderColor: mode(
+							colors.darkBlueGrey,
+							colors.lightGrey
+						),
 					},
 				},
 			},

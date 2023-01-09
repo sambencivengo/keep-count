@@ -18,10 +18,13 @@ import {
 import { MoonIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { colors } from '../../theme';
 import { useUser } from '../UserProvider';
+import { useRouter } from 'next/router';
+import React from 'react';
 
 export default function NavBar() {
 	const { user } = useUser();
 	const { colorMode, toggleColorMode } = useColorMode();
+	const router = useRouter();
 
 	return (
 		<>
@@ -66,15 +69,36 @@ export default function NavBar() {
 									<Icon as={HamburgerIcon} />
 								</MenuButton>
 								<MenuList alignItems={'center'}>
-									<Center>
-										<Heading py={5} size="md">
-											{user?.username}
-										</Heading>
-									</Center>
-									<MenuDivider />
-									<MenuItem>Counts</MenuItem>
-									<MenuItem>Groups</MenuItem>
-									<MenuItem>New Count</MenuItem>
+									{user ? (
+										<>
+											<Center>
+												<Heading py={5} size="md">
+													{user?.username}
+												</Heading>
+											</Center>
+											<MenuDivider />
+											<MenuItem>Counts</MenuItem>
+											<MenuItem>Groups</MenuItem>
+											<MenuItem>New Count</MenuItem>
+										</>
+									) : (
+										<>
+											<MenuItem
+												onClick={() =>
+													router.push('/login')
+												}
+											>
+												Log In
+											</MenuItem>
+											<MenuItem
+												onClick={() =>
+													router.push('/sign-up')
+												}
+											>
+												Sign Up
+											</MenuItem>
+										</>
+									)}
 								</MenuList>
 							</Menu>
 						</Stack>
