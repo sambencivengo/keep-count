@@ -25,7 +25,6 @@ export const login: Handler = async (req, res) => {
 			username: user.username,
 			id: user.id,
 		});
-		console.log(req.session);
 	} catch (error) {
 		res.status(500).send(`Unable to create new user: ${error}`);
 		return;

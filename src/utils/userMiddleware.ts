@@ -4,6 +4,10 @@ import { prisma } from '../prismaClient';
 export const userMiddleware: Handler = async (req, res, next) => {
 	const { user: userId } = req.session;
 
+	if (!userId) {
+		res.status(403).send('Unable to validate user');
+		return;
+	}
 	try {
 		const user = await prisma.user.findUnique({
 			where: {

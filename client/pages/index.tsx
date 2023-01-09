@@ -1,37 +1,47 @@
 import Head from 'next/head';
-import { Box, Heading, VStack } from '@chakra-ui/react';
+import {
+	Box,
+	Heading,
+	IconButton,
+	useColorModeValue,
+	VStack,
+	Flex,
+	Wrap,
+} from '@chakra-ui/react';
 import { useUser } from '../components/UserProvider';
 import React from 'react';
 import { Count } from '@prisma/client';
 import { baseUrl } from '../constants';
+import { colors } from '../theme';
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 
 export default function Home() {
 	const { user } = useUser();
-	const [counts, setCounts] = React.useState<Count[]>([]);
+	const [counts, setCounts] = React.useState<Count[] | null>(null);
+	const borderColor = useColorModeValue(
+		colors.darkBlueGrey,
+		colors.lightGrey
+	);
 
-	const getCounts = async (): Promise<Count[]> => {
+	const getCounts = async (): Promise<void> => {
 		try {
 			const res = await fetch(`${baseUrl}api/counts`, {
 				credentials: 'include',
 			});
 			if (!res.ok) {
-				setCounts([]);
 				console.error('Unable to get counts');
 			}
-			const data = await res.json();
-			setCounts([...data]);
 
-			return counts;
+			setCounts(await res.json());
 		} catch (error) {
 			console.error(error);
-			setCounts([]);
-			return counts;
 		}
 	};
-
 	React.useEffect(() => {
 		getCounts();
 	}, []);
+
+	console.log(counts);
 
 	return (
 		<>
@@ -52,6 +62,42 @@ export default function Home() {
 					<Heading>This is the home page of the application</Heading>
 					<Heading size="md">Welcome {user?.username}</Heading>
 					<Box>Count</Box>
+					<Wrap spacing={10} justify="center">
+						{counts &&
+							counts.map((count) => (
+								<Box
+									w="300px"
+									rounded="md"
+									border={`3px solid ${borderColor}`}
+									p={30}
+									key={count.id}
+								>
+									<VStack gap={3}>
+										<Heading textAlign="center" size={'md'}>
+											{count.title}
+										</Heading>
+										<Flex
+											w="100%"
+											justifyContent="space-around"
+										>
+											<IconButton
+												fontSize={20}
+												aria-label="Minus Symbol Button"
+												icon={<MinusIcon />}
+											/>
+											<Heading size="lg">
+												{count.value}
+											</Heading>
+											<IconButton
+												fontSize={20}
+												aria-label="Plus Symbol Button"
+												icon={<AddIcon />}
+											/>
+										</Flex>
+									</VStack>
+								</Box>
+							))}
+					</Wrap>
 				</VStack>
 			</main>
 		</>
