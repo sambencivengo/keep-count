@@ -1,4 +1,5 @@
 import { User } from '@prisma/client';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { baseUrl } from '../constants';
 
@@ -29,6 +30,7 @@ const UserContext = React.createContext<UserContextData>({
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [user, setUser] = React.useState<User | null>(null);
+	const router = useRouter();
 
 	const getMe = async (): Promise<void> => {
 		try {
@@ -39,6 +41,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
 			if (!res.ok) {
 				setUser(null);
+				router.push('/login');
 			}
 
 			const data = await res.json();
@@ -89,7 +92,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
 	const logout = async (): Promise<boolean> => {
 		try {
-			await fetch(`${baseUrl}/api/users`, { method: 'DELETE' });
+			await fetch(`${baseUrl}api/users`, { method: 'DELETE' });
 			getMe();
 			return true;
 		} catch (error) {
