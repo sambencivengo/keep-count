@@ -30,15 +30,6 @@ export const NavBar: React.FC = () => {
 
 	const logoutUser = async () => {
 		const success = await logout();
-		toast({
-			description: 'Come back soon!',
-			status: 'success',
-			variant: 'solid',
-			duration: 4000,
-			isClosable: true,
-			position: 'top',
-		});
-		router.push('/login');
 		if (!success) {
 			toast({
 				description: 'Unable to log out',
@@ -48,7 +39,17 @@ export const NavBar: React.FC = () => {
 				isClosable: true,
 				position: 'top',
 			});
+			return;
 		}
+		toast({
+			description: 'Come back soon!',
+			status: 'success',
+			variant: 'solid',
+			duration: 4000,
+			isClosable: true,
+			position: 'top',
+		});
+		router.push('/login');
 	};
 
 	return (

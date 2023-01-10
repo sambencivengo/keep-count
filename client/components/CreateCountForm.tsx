@@ -62,7 +62,7 @@ export const CreateCountForm: React.FC<CreateCountFormProps> = ({}) => {
 			<Box
 				maxW={'500px'}
 				pb={'5px'}
-				p={20}
+				py={10}
 				px={[5, 10, 20]}
 				rounded={'md'}
 				border={`3px solid ${useColorModeValue(

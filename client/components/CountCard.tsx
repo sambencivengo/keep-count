@@ -12,10 +12,13 @@ import {
 import Link from 'next/link';
 import React from 'react';
 import { colors } from '../theme';
-import { CountWithGroup, ManipulateCountProps } from './CountsContainer';
+import {
+	ManipulateCountProps,
+	CountWithGroupTitleAndId,
+} from './CountsContainer';
 
 interface CountCardProps {
-	count: CountWithGroup;
+	count: CountWithGroupTitleAndId;
 	manipulateCount: (a: ManipulateCountProps) => Promise<void>;
 }
 
@@ -37,7 +40,9 @@ export const CountCard: React.FC<CountCardProps> = ({
 			{count.group ? (
 				<Center>
 					<Tag bgColor={colors.orange} size="lg">
-						<Link href={'/'}>{count.group.title}</Link>
+						<Link href={`/group/${count.groupId}`}>
+							{count.group.title}
+						</Link>
 					</Tag>
 				</Center>
 			) : (

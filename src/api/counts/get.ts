@@ -15,7 +15,12 @@ export const get: Handler = async (req, res) => {
 				userId: Number(userId),
 			},
 			include: {
-				group: true,
+				group: {
+					select: {
+						id: true,
+						title: true,
+					},
+				},
 			},
 		});
 
