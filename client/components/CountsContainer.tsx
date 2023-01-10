@@ -72,8 +72,6 @@ export const CountsContainer: React.FC = ({}) => {
 		getCounts();
 	}, []);
 
-	console.log(counts);
-
 	return (
 		<VStack gap={5}>
 			<Heading>Your Counts:</Heading>

@@ -38,7 +38,7 @@ export const CountCard: React.FC<CountCardProps> = ({
 				<Heading textAlign="center" size={'md'}>
 					{count.title}
 				</Heading>
-				<Flex w="100%" justifyContent="space-around">
+				<Flex w="90%" justifyContent="space-between">
 					<IconButton
 						onClick={() =>
 							manipulateCount({
