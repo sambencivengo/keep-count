@@ -40,14 +40,7 @@ export const CountsContainer: React.FC = ({}) => {
 				return;
 			}
 			await res.json();
-			toast({
-				description: 'Count incremented',
-				status: 'success',
-				variant: 'solid',
-				duration: 4000,
-				isClosable: true,
-				position: 'top',
-			});
+			getCounts();
 		} catch (error) {
 			toast({
 				description: 'Unable to change count',
@@ -78,6 +71,8 @@ export const CountsContainer: React.FC = ({}) => {
 	React.useEffect(() => {
 		getCounts();
 	}, []);
+
+	console.log(counts);
 
 	return (
 		<VStack gap={5}>

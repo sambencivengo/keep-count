@@ -6,6 +6,11 @@ export const get: Handler = async (req, res) => {
 
 	try {
 		const counts = await prisma.count.findMany({
+			orderBy: [
+				{
+					createdAt: 'desc',
+				},
+			],
 			where: {
 				userId: Number(userId),
 			},
