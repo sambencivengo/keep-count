@@ -1,7 +1,11 @@
 import {
 	Box,
 	Button,
+	FormControl,
+	FormLabel,
 	Heading,
+	Select,
+	Switch,
 	useColorModeValue,
 	useToast,
 	VStack,
@@ -9,15 +13,22 @@ import {
 import { Formik, Form } from 'formik';
 import { NextPage } from 'next';
 import router from 'next/router';
+import React from 'react';
 import { InputField } from '../components/InputField';
 import { baseUrl } from '../constants';
-import { CreateUserSchema } from '../schema';
+import { CreateCountSchema } from '../schema';
 import { colors } from '../theme';
 
 const NewCount: NextPage = () => {
 	const toast = useToast();
 	const groupHelperText =
 		'You have the option to create a group that this count will belong to.';
+	const [addToExistingGroup, setAddToExistingGroup] = React.useState(false);
+
+	const toggleAddToExistingGroup = () =>
+		setAddToExistingGroup(!addToExistingGroup);
+
+	console.log(addToExistingGroup);
 
 	return (
 		<>
@@ -36,9 +47,11 @@ const NewCount: NextPage = () => {
 				<Formik
 					validateOnChange={false}
 					validateOnBlur={false}
-					initialValues={{ username: '', password: '' }}
-					validationSchema={CreateUserSchema.uiSchema}
+					initialValues={{ title: '' }}
+					validationSchema={CreateCountSchema.uiSchema}
 					onSubmit={async (args) => {
+						console.log(args);
+
 						const success = await fetch(`${baseUrl}api/counts`, {
 							method: 'POST',
 							headers: {
@@ -47,16 +60,7 @@ const NewCount: NextPage = () => {
 							body: JSON.stringify(args),
 							credentials: 'include',
 						});
-						toast({
-							description: 'New count created!',
-							status: 'success',
-							variant: 'solid',
-							duration: 4000,
-							isClosable: true,
-							position: 'top',
-						});
-
-						router.push('/');
+						console.log(success);
 
 						if (!success) {
 							toast({
@@ -70,6 +74,16 @@ const NewCount: NextPage = () => {
 							});
 							return;
 						}
+						toast({
+							description: 'New count created!',
+							status: 'success',
+							variant: 'solid',
+							duration: 4000,
+							isClosable: true,
+							position: 'top',
+						});
+
+						router.push('/');
 					}}
 				>
 					{({ isSubmitting }) => (
@@ -80,11 +94,41 @@ const NewCount: NextPage = () => {
 									name="title"
 									isRequired={true}
 								/>
-								<InputField
-									label="Group"
-									name="group"
-									helperText={groupHelperText}
-								/>
+
+								{addToExistingGroup ? (
+									<FormControl>
+										<FormLabel htmlFor="existing-group-switch">
+											Select group:
+										</FormLabel>
+										<Select placeholder="Select option">
+											<option value="option1">
+												Option 1
+											</option>
+											<option value="option2">
+												Option 2
+											</option>
+											<option value="option3">
+												Option 3
+											</option>
+										</Select>
+									</FormControl>
+								) : (
+									<InputField
+										label="Group"
+										name="group"
+										helperText={groupHelperText}
+									/>
+								)}
+								<FormControl display="flex" alignItems="center">
+									<FormLabel htmlFor="existing-group-switch">
+										Add to existing group?
+									</FormLabel>
+									<Switch
+										onChange={toggleAddToExistingGroup}
+										id="existing-group-switch"
+									/>
+								</FormControl>
+
 								<Button isLoading={isSubmitting} type="submit">
 									Submit
 								</Button>
