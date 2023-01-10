@@ -12,6 +12,14 @@ export const post: Handler = async (req, res) => {
 
 	try {
 		const { title, groupTitle } = req.body;
+		const groupOrUndefined = groupTitle
+			? {
+					create: {
+						title: groupTitle as string,
+						userId: req.user.id,
+					},
+			  }
+			: undefined;
 
 		const count = await prisma.count.create({
 			data: {
@@ -21,12 +29,7 @@ export const post: Handler = async (req, res) => {
 						id: req.user.id,
 					},
 				},
-				group: {
-					create: {
-						title: groupTitle as string,
-						userId: req.user.id,
-					},
-				},
+				group: groupOrUndefined,
 			},
 		});
 
