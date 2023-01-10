@@ -9,7 +9,6 @@ import {
 	Tag,
 	Center,
 } from '@chakra-ui/react';
-import { Count } from '@prisma/client';
 import Link from 'next/link';
 import React from 'react';
 import { colors } from '../theme';
