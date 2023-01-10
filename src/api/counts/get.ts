@@ -23,7 +23,7 @@ export const get: Handler = async (req, res) => {
 
 		res.send(counts);
 	} catch (error) {
-		res.status(500).send(`Unable to get count: ${error}`);
+		res.status(500).send(`Unable to get counts: ${error}`);
 		return;
 	}
 };
