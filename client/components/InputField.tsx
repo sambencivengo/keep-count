@@ -3,6 +3,7 @@ import {
 	FormLabel,
 	Input,
 	FormErrorMessage,
+	FormHelperText,
 } from '@chakra-ui/react';
 import { useField } from 'formik';
 import React, { InputHTMLAttributes } from 'react';
@@ -12,12 +13,14 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
 	name: string;
 	label?: string;
 	isRequired?: true;
+	helperText?: string;
 };
 
 export const InputField: React.FC<InputFieldProps> = ({
 	isRequired = false,
 	label,
 	size: _,
+	helperText,
 	...props
 }) => {
 	const [field, { error }] = useField(props);
@@ -30,6 +33,7 @@ export const InputField: React.FC<InputFieldProps> = ({
 					{error}
 				</FormErrorMessage>
 			)}
+			{helperText && <FormHelperText>{helperText}</FormHelperText>}
 		</FormControl>
 	);
 };

@@ -32,6 +32,8 @@ export const SignUpLoginForm: React.FC<SignUpLoginFormProps> = ({
 		<>
 			<Heading>{formPurpose === 'login' ? 'Log In' : 'Sign Up'}</Heading>
 			<Box
+				pb="5px"
+				maxW={'500px'}
 				pt={20}
 				px={[5, 10, 20]}
 				rounded={'md'}
@@ -101,7 +103,7 @@ export const SignUpLoginForm: React.FC<SignUpLoginFormProps> = ({
 						</Form>
 					)}
 				</Formik>
-				<Center mt="50px" pb="5px">
+				<Center mt="50px">
 					<Link
 						href={formPurpose === 'login' ? '/sign-up' : '/login'}
 					>
