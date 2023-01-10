@@ -14,6 +14,9 @@ export const get: Handler = async (req, res) => {
 			where: {
 				userId: Number(userId),
 			},
+			include: {
+				group: true,
+			},
 		});
 
 		if (!counts) {
