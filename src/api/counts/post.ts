@@ -12,11 +12,21 @@ export const post: Handler = async (req, res) => {
 
 	try {
 		const { title, groupTitle } = req.body;
-		const groupOrUndefined = groupTitle
+		const { groupId } = req.query;
+
+		const newGroupOrUndefined = groupTitle
 			? {
 					create: {
 						title: groupTitle as string,
 						userId: req.user.id,
+					},
+			  }
+			: undefined;
+
+		const connectGroup = groupId
+			? {
+					connect: {
+						id: Number(groupId),
 					},
 			  }
 			: undefined;
@@ -29,7 +39,7 @@ export const post: Handler = async (req, res) => {
 						id: req.user.id,
 					},
 				},
-				group: groupOrUndefined,
+				group: newGroupOrUndefined ?? connectGroup,
 			},
 		});
 
