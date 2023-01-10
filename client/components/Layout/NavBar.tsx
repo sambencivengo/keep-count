@@ -20,6 +20,7 @@ import { colors } from '../../theme';
 import { useUser } from '../UserProvider';
 import { useRouter } from 'next/router';
 import React from 'react';
+import Link from 'next/link';
 
 export const NavBar: React.FC = () => {
 	const { user, logout } = useUser();
@@ -69,7 +70,9 @@ export const NavBar: React.FC = () => {
 					justifyContent={'space-between'}
 				>
 					<Box>
-						<Heading size="md">Keep Count</Heading>
+						<Link href={'/'}>
+							<Heading size="md">Keep Count</Heading>
+						</Link>
 					</Box>
 
 					<Flex alignItems={'center'}>
@@ -103,7 +106,13 @@ export const NavBar: React.FC = () => {
 											<MenuDivider />
 											<MenuItem>Counts</MenuItem>
 											<MenuItem>Groups</MenuItem>
-											<MenuItem>New Count</MenuItem>
+											<MenuItem
+												onClick={() =>
+													router.push('/new-count')
+												}
+											>
+												New Count
+											</MenuItem>
 											<MenuItem onClick={logoutUser}>
 												Log out
 											</MenuItem>
