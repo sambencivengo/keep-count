@@ -1,4 +1,3 @@
-import { Count } from '@prisma/client';
 import { Handler } from 'express';
 import { CreateCountSchema } from '../../schema';
 import { prisma } from '../../prismaClient';
@@ -12,7 +11,7 @@ export const post: Handler = async (req, res) => {
 	}
 
 	try {
-		const { title } = req.body as Count;
+		const { title, groupTitle } = req.body;
 
 		const count = await prisma.count.create({
 			data: {
@@ -20,6 +19,12 @@ export const post: Handler = async (req, res) => {
 				user: {
 					connect: {
 						id: req.user.id,
+					},
+				},
+				group: {
+					create: {
+						title: groupTitle as string,
+						userId: req.user.id,
 					},
 				},
 			},

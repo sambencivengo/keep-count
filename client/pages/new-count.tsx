@@ -47,7 +47,7 @@ const NewCount: NextPage = () => {
 				<Formik
 					validateOnChange={false}
 					validateOnBlur={false}
-					initialValues={{ title: '' }}
+					initialValues={{ title: '', groupTitle: '' }}
 					validationSchema={CreateCountSchema.uiSchema}
 					onSubmit={async (args) => {
 						const res = await fetch(`${baseUrl}api/counts`, {
@@ -115,7 +115,7 @@ const NewCount: NextPage = () => {
 								) : (
 									<InputField
 										label="Group"
-										name="group"
+										name="groupTitle"
 										helperText={groupHelperText}
 									/>
 								)}
