@@ -4,10 +4,9 @@ import {
 	Button,
 	Box,
 	useToast,
-	Link,
+	Link as ChakraLink,
 	Center,
 	useColorModeValue,
-	useBreakpointValue,
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import router from 'next/router';
@@ -16,7 +15,7 @@ import { InputField } from './InputField';
 import { useUser } from './UserProvider';
 import { CreateUserSchema } from '../schema';
 import { colors } from '../theme';
-import * as NextLink from 'next/link';
+import Link from 'next/link';
 
 interface SignUpLoginFormProps {
 	formPurpose: 'signUp' | 'login';
@@ -33,9 +32,9 @@ export const SignUpLoginForm: React.FC<SignUpLoginFormProps> = ({
 			<Heading>{formPurpose === 'login' ? 'Log In' : 'Sign Up'}</Heading>
 			<Box
 				pb="5px"
-				maxW={'500px'}
+				w={['300px', '400px', '500px']}
 				pt={20}
-				px={[5, 10, 20]}
+				px={10}
 				rounded={'md'}
 				border={`3px solid ${useColorModeValue(
 					colors.darkBlueGrey,

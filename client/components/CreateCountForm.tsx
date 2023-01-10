@@ -60,10 +60,10 @@ export const CreateCountForm: React.FC<CreateCountFormProps> = ({}) => {
 		<>
 			<Heading>New Count</Heading>
 			<Box
-				maxW={'500px'}
+				w={['300px', '400px', '500px']}
 				pb={'5px'}
 				py={10}
-				px={[5, 10, 20]}
+				p={10}
 				rounded={'md'}
 				border={`3px solid ${useColorModeValue(
 					colors.darkBlueGrey,

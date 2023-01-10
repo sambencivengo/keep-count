@@ -39,7 +39,11 @@ export const CountCard: React.FC<CountCardProps> = ({
 		>
 			{count.group ? (
 				<Center>
-					<Tag bgColor={colors.orange} size="lg">
+					<Tag
+						borderBottomRadius={0}
+						bgColor={colors.orange}
+						size="lg"
+					>
 						<Link href={`/group/${count.groupId}`}>
 							{count.group.title}
 						</Link>
