@@ -1,5 +1,5 @@
 import { VStack, Heading, Wrap, useToast } from '@chakra-ui/react';
-import { Count } from '@prisma/client';
+import { Count, Group } from '@prisma/client';
 import React from 'react';
 import { baseUrl } from '../constants';
 import { CountCard } from './CountCard';
@@ -9,8 +9,12 @@ export interface ManipulateCountProps {
 	countId: number;
 }
 
+export interface CountWithGroup extends Count {
+	group: Group;
+}
+
 export const CountsContainer: React.FC = ({}) => {
-	const [counts, setCounts] = React.useState<Count[] | null>(null);
+	const [counts, setCounts] = React.useState<CountWithGroup[] | null>(null);
 	const toast = useToast();
 
 	const manipulateCount = async ({
