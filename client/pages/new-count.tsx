@@ -10,10 +10,12 @@ import {
 	useToast,
 	VStack,
 } from '@chakra-ui/react';
+import { Count } from '@prisma/client';
 import { Formik, Form } from 'formik';
 import { NextPage } from 'next';
 import router from 'next/router';
 import React from 'react';
+import { JsxEmit } from 'typescript';
 import { InputField } from '../components/InputField';
 import { baseUrl } from '../constants';
 import { CreateCountSchema } from '../schema';
@@ -27,8 +29,6 @@ const NewCount: NextPage = () => {
 
 	const toggleAddToExistingGroup = () =>
 		setAddToExistingGroup(!addToExistingGroup);
-
-	console.log(addToExistingGroup);
 
 	return (
 		<>
@@ -50,9 +50,7 @@ const NewCount: NextPage = () => {
 					initialValues={{ title: '' }}
 					validationSchema={CreateCountSchema.uiSchema}
 					onSubmit={async (args) => {
-						console.log(args);
-
-						const success = await fetch(`${baseUrl}api/counts`, {
+						const res = await fetch(`${baseUrl}api/counts`, {
 							method: 'POST',
 							headers: {
 								'content-type': 'application/json',
@@ -60,9 +58,8 @@ const NewCount: NextPage = () => {
 							body: JSON.stringify(args),
 							credentials: 'include',
 						});
-						console.log(success);
 
-						if (!success) {
+						if (!res.ok) {
 							toast({
 								description:
 									'There was a problem creating a new count',
@@ -74,8 +71,11 @@ const NewCount: NextPage = () => {
 							});
 							return;
 						}
+
+						const data: Count = await res.json();
+
 						toast({
-							description: 'New count created!',
+							description: `New ${data.title} count created!`,
 							status: 'success',
 							variant: 'solid',
 							duration: 4000,
