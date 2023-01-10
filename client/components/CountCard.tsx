@@ -10,12 +10,17 @@ import {
 import { Count } from '@prisma/client';
 import React from 'react';
 import { colors } from '../theme';
+import { ManipulateCountProps } from './CountsContainer';
 
 interface CountCardProps {
 	count: Count;
+	manipulateCount: (a: ManipulateCountProps) => Promise<void>;
 }
 
-export const CountCard: React.FC<CountCardProps> = ({ count }) => {
+export const CountCard: React.FC<CountCardProps> = ({
+	count,
+	manipulateCount,
+}) => {
 	const borderColor = useColorModeValue(
 		colors.darkBlueGrey,
 		colors.lightGrey
@@ -35,12 +40,24 @@ export const CountCard: React.FC<CountCardProps> = ({ count }) => {
 				</Heading>
 				<Flex w="100%" justifyContent="space-around">
 					<IconButton
+						onClick={() =>
+							manipulateCount({
+								buttonPurpose: 'subtract',
+								countId: count.id,
+							})
+						}
 						fontSize={20}
 						aria-label="Minus Symbol Button"
 						icon={<MinusIcon />}
 					/>
 					<Heading size="lg">{count.value}</Heading>
 					<IconButton
+						onClick={() =>
+							manipulateCount({
+								buttonPurpose: 'add',
+								countId: count.id,
+							})
+						}
 						fontSize={20}
 						aria-label="Plus Symbol Button"
 						icon={<AddIcon />}
