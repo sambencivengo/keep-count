@@ -30,7 +30,7 @@ export const CountCard: React.FC<CountCardProps> = ({
 		colors.darkBlueGrey,
 		colors.lightGrey
 	);
-
+	let countValue = count.value;
 	return (
 		<Flex
 			justifyContent={'space-between'}
@@ -66,17 +66,18 @@ export const CountCard: React.FC<CountCardProps> = ({
 					</Heading>
 					<Flex w="90%" justifyContent="space-between">
 						<IconButton
-							onClick={() =>
-								manipulateCount({
+							onClick={() => {
+								countValue++;
+								const success = manipulateCount({
 									buttonPurpose: 'subtract',
 									countId: count.id,
-								})
-							}
+								});
+							}}
 							fontSize={20}
 							aria-label="Minus Symbol Button"
 							icon={<MinusIcon />}
 						/>
-						<Heading size="lg">{count.value}</Heading>
+						<Heading size="lg">{countValue}</Heading>
 						<IconButton
 							onClick={() =>
 								manipulateCount({

@@ -56,7 +56,7 @@ export const CountsContainer: React.FC = ({}) => {
 				return;
 			}
 			await res.json();
-			getCounts();
+			getCounts(false);
 		} catch (error) {
 			toast({
 				description: 'Unable to change count',
@@ -70,8 +70,8 @@ export const CountsContainer: React.FC = ({}) => {
 		}
 	};
 
-	const getCounts = async (): Promise<void> => {
-		setIsLoading(true);
+	const getCounts = async (initialFetch = true): Promise<void> => {
+		if (initialFetch) setIsLoading(true);
 
 		try {
 			const res = await fetch(`/api/counts`, {
@@ -86,12 +86,12 @@ export const CountsContainer: React.FC = ({}) => {
 					isClosable: true,
 					position: 'top',
 				});
-				setIsLoading(false);
+				if (initialFetch) setIsLoading(false);
 				return;
 			}
 
 			setCounts(await res.json());
-			setIsLoading(false);
+			if (initialFetch) setIsLoading(false);
 		} catch (error) {
 			console.error(error);
 		}
