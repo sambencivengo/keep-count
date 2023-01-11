@@ -50,18 +50,6 @@ export const SignUpLoginForm: React.FC<SignUpLoginFormProps> = ({
 							formPurpose === 'login'
 								? await login(args)
 								: await signUp(args);
-						toast({
-							description: `${
-								formPurpose === 'login' ? 'Log in' : 'Sign up'
-							} successful!`,
-							status: 'success',
-							variant: 'solid',
-							duration: 4000,
-							isClosable: true,
-							position: 'top',
-						});
-
-						router.push('/');
 
 						if (!success) {
 							toast({
@@ -78,6 +66,19 @@ export const SignUpLoginForm: React.FC<SignUpLoginFormProps> = ({
 							});
 							return;
 						}
+
+						toast({
+							description: `${
+								formPurpose === 'login' ? 'Log in' : 'Sign up'
+							} successful!`,
+							status: 'success',
+							variant: 'solid',
+							duration: 4000,
+							isClosable: true,
+							position: 'top',
+						});
+
+						router.push('/');
 					}}
 				>
 					{({ isSubmitting }) => (

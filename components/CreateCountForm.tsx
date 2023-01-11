@@ -34,7 +34,7 @@ export const CreateCountForm: React.FC<CreateCountFormProps> = ({}) => {
 		setAddToExistingGroup(!addToExistingGroup);
 
 	const fetchGroups = async () => {
-		const res = await fetch(`${baseUrl}api/groups`, {
+		const res = await fetch(`${baseUrl}/api/groups`, {
 			credentials: 'include',
 		});
 
@@ -81,7 +81,7 @@ export const CreateCountForm: React.FC<CreateCountFormProps> = ({}) => {
 							groupId: groupId ?? '',
 						});
 						const res = await fetch(
-							`${baseUrl}api/counts?${queryString}`,
+							`${baseUrl}/api/counts?${queryString}`,
 							{
 								method: 'POST',
 								headers: {

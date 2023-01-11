@@ -26,7 +26,7 @@ const GroupId: NextPage = () => {
 	}: ManipulateCountProps): Promise<void> => {
 		try {
 			const res = await fetch(
-				`${baseUrl}api/counts/${countId}?purpose=${buttonPurpose}`,
+				`${baseUrl}/api/counts/${countId}?purpose=${buttonPurpose}`,
 				{
 					method: 'PUT',
 					headers: {

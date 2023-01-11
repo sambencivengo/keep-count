@@ -32,6 +32,7 @@
 		"node": "^12.22.0 || ^14.17.0 || >=16.0.0"
 	},
 	"dependencies": {
+		"@americanairlines/simple-env": "^1.0.5",
 		"@chakra-ui/icons": "^2.0.16",
 		"@chakra-ui/react": "^2.4.7",
 		"@emotion/react": "^11.10.5",

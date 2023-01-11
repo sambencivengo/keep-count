@@ -2,6 +2,7 @@ import { User } from '@prisma/client';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { baseUrl } from '../constants';
+import { env } from '../src/env';
 
 interface UserProviderProps {
 	children: React.ReactNode;
@@ -34,7 +35,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
 	const getMe = async (): Promise<void> => {
 		try {
-			const res = await fetch(`${baseUrl}api/users/me`, {
+			const res = await fetch(`${baseUrl}/api/users/me`, {
 				method: 'GET',
 				credentials: 'include',
 			});
@@ -63,7 +64,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 		setIsLoading(true);
 
 		try {
-			const res = await fetch(`${baseUrl}api/users/login`, {
+			const res = await fetch(`${baseUrl}/api/users/login`, {
 				method: 'POST',
 				headers: {
 					'content-type': 'application/json',
@@ -92,7 +93,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
 	const logout = async (): Promise<boolean> => {
 		try {
-			await fetch(`${baseUrl}api/users`, { method: 'DELETE' });
+			await fetch(`${baseUrl}/api/users`, { method: 'DELETE' });
 			getMe();
 			return true;
 		} catch (error) {
@@ -108,7 +109,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 		setIsLoading(true);
 
 		try {
-			const res = await fetch(`${baseUrl}api/users`, {
+			const res = await fetch(`${baseUrl}/api/users`, {
 				method: 'POST',
 				headers: {
 					'content-type': 'application/json',

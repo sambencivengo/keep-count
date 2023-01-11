@@ -28,7 +28,7 @@ export const CountsContainer: React.FC = ({}) => {
 	}: ManipulateCountProps): Promise<void> => {
 		try {
 			const res = await fetch(
-				`${baseUrl}api/counts/${countId}?purpose=${buttonPurpose}`,
+				`${baseUrl}/api/counts/${countId}?purpose=${buttonPurpose}`,
 				{
 					method: 'PUT',
 					headers: {
@@ -65,7 +65,7 @@ export const CountsContainer: React.FC = ({}) => {
 
 	const getCounts = async (): Promise<void> => {
 		try {
-			const res = await fetch(`${baseUrl}api/counts`, {
+			const res = await fetch(`${baseUrl}/api/counts`, {
 				credentials: 'include',
 			});
 			if (!res.ok) {
@@ -80,8 +80,6 @@ export const CountsContainer: React.FC = ({}) => {
 	React.useEffect(() => {
 		getCounts();
 	}, []);
-
-	console.log(counts);
 
 	return (
 		<VStack gap={5}>

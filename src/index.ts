@@ -1,6 +1,4 @@
 import 'reflect-metadata';
-import * as dotenv from 'dotenv';
-dotenv.config();
 import express from 'express';
 import { connectDb, prisma } from './prismaClient';
 import { api } from './api';
@@ -8,14 +6,13 @@ import createMemoryStore from 'memorystore';
 import session from 'express-session';
 import cors from 'cors';
 import next from 'next';
+import { env } from './env';
 
 const MemoryStore = createMemoryStore(session);
 const PORT = process.env.PORT ?? 8000;
 const dev = process.env.nodeEnv !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-
-// const start = async () => {
 
 app.prepare()
 	.then(async () => {
@@ -25,10 +22,11 @@ app.prepare()
 
 		server.use(
 			cors<cors.CorsRequest>({
-				origin: ['http://localhost:3000'],
+				origin: env.websiteUrl,
 				credentials: true,
 			})
 		);
+		server.set('trust proxy', 1);
 
 		server.use(
 			session({
@@ -49,6 +47,10 @@ app.prepare()
 		);
 
 		server.use(express.json());
+
+		server.get('/api/health', (_, res) => {
+			res.send('Large and in charge');
+		});
 
 		// All api routes
 		server.use('/api', api);
