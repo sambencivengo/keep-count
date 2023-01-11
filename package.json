@@ -12,7 +12,7 @@
 		"migration:fresh": "prisma migrate reset",
 		"migration:prod": "prisma migrate deploy",
 		"start": "node dist/index.js",
-		"build": "yarn && yarn tsc && migration:prod && yarn next build"
+		"build": "yarn && yarn tsc && yarn migration:prod && yarn next build"
 	},
 	"keywords": [],
 	"author": "",
