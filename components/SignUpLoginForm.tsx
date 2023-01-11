@@ -4,7 +4,6 @@ import {
 	Button,
 	Box,
 	useToast,
-	Link as ChakraLink,
 	Center,
 	useColorModeValue,
 } from '@chakra-ui/react';

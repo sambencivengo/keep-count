@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "es2018",
-		"module": "commonjs",
+		"module": "esnext",
 		"lib": ["dom", "es6", "es2018", "esnext.asynciterable"],
 		"skipLibCheck": true,
 		"sourceMap": true,
@@ -27,7 +27,7 @@
 		"resolveJsonModule": true,
 		"baseUrl": ".",
 		"allowJs": true,
-		"strict": false,
+		"strict": true,
 		"forceConsistentCasingInFileNames": true,
 		"noEmit": true,
 		"incremental": true,
@@ -35,5 +35,5 @@
 		"jsx": "preserve"
 	},
 	"exclude": ["node_modules"],
-	"include": ["./src/**/*.ts"]
+	"include": ["./src/**/*.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

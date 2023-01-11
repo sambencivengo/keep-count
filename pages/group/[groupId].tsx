@@ -1,5 +1,5 @@
-import { Box, Heading, useToast, VStack, Wrap } from '@chakra-ui/react';
-import { Count, Group } from '@prisma/client';
+import { Heading, useToast, VStack, Wrap } from '@chakra-ui/react';
+import { Group } from '@prisma/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
