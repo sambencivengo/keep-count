@@ -8,7 +8,6 @@ import {
 	CountWithGroupTitleAndId,
 	ManipulateCountProps,
 } from '../../components/CountsContainer';
-import { baseUrl } from '../../constants';
 
 interface GroupWithCountsDTO extends Group {
 	counts: CountWithGroupTitleAndId[];
@@ -26,7 +25,7 @@ const GroupId: NextPage = () => {
 	}: ManipulateCountProps): Promise<void> => {
 		try {
 			const res = await fetch(
-				`${baseUrl}/api/counts/${countId}?purpose=${buttonPurpose}`,
+				`/api/counts/${countId}?purpose=${buttonPurpose}`,
 				{
 					method: 'PUT',
 					headers: {
@@ -62,7 +61,7 @@ const GroupId: NextPage = () => {
 	};
 
 	const getGroupCounts = async () => {
-		const res = await fetch(`${baseUrl}api/groups/${groupId}`, {
+		const res = await fetch(`/api/groups/${groupId}`, {
 			credentials: 'include',
 		});
 

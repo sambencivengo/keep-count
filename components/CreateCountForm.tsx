@@ -15,7 +15,6 @@ import { Count, Group } from '@prisma/client';
 import { Formik, Form } from 'formik';
 import router from 'next/router';
 import React from 'react';
-import { baseUrl } from '../constants';
 import { CreateCountSchema } from '../schema';
 import { colors } from '../theme';
 import { InputField } from './InputField';
@@ -34,7 +33,7 @@ export const CreateCountForm: React.FC<CreateCountFormProps> = ({}) => {
 		setAddToExistingGroup(!addToExistingGroup);
 
 	const fetchGroups = async () => {
-		const res = await fetch(`${baseUrl}/api/groups`, {
+		const res = await fetch(`/api/groups`, {
 			credentials: 'include',
 		});
 
@@ -80,17 +79,14 @@ export const CreateCountForm: React.FC<CreateCountFormProps> = ({}) => {
 						const queryString = new URLSearchParams({
 							groupId: groupId ?? '',
 						});
-						const res = await fetch(
-							`${baseUrl}/api/counts?${queryString}`,
-							{
-								method: 'POST',
-								headers: {
-									'content-type': 'application/json',
-								},
-								body: JSON.stringify(args),
-								credentials: 'include',
-							}
-						);
+						const res = await fetch(`/api/counts?${queryString}`, {
+							method: 'POST',
+							headers: {
+								'content-type': 'application/json',
+							},
+							body: JSON.stringify(args),
+							credentials: 'include',
+						});
 
 						if (!res.ok) {
 							toast({

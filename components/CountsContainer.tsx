@@ -1,7 +1,6 @@
 import { VStack, Heading, Wrap, useToast } from '@chakra-ui/react';
 import { Count } from '@prisma/client';
 import React from 'react';
-import { baseUrl } from '../constants';
 import { CountCard } from './CountCard';
 
 export interface ManipulateCountProps {
@@ -28,7 +27,7 @@ export const CountsContainer: React.FC = ({}) => {
 	}: ManipulateCountProps): Promise<void> => {
 		try {
 			const res = await fetch(
-				`${baseUrl}/api/counts/${countId}?purpose=${buttonPurpose}`,
+				`/api/counts/${countId}?purpose=${buttonPurpose}`,
 				{
 					method: 'PUT',
 					headers: {
@@ -65,7 +64,7 @@ export const CountsContainer: React.FC = ({}) => {
 
 	const getCounts = async (): Promise<void> => {
 		try {
-			const res = await fetch(`${baseUrl}/api/counts`, {
+			const res = await fetch(`/api/counts`, {
 				credentials: 'include',
 			});
 			if (!res.ok) {
