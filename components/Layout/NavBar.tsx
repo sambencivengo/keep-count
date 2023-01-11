@@ -106,7 +106,6 @@ export const NavBar: React.FC = () => {
 											</Center>
 											<MenuDivider />
 											<MenuItem>Counts</MenuItem>
-											<MenuItem>Groups</MenuItem>
 											<MenuItem
 												onClick={() =>
 													router.push('/new-count')

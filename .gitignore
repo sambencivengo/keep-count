@@ -21,7 +21,7 @@ node_modules
 # production
 /build
 /.serverless
-/.serverless_nextjs
+/.serverless_nextj
 
 # misc
 .DS_Store
