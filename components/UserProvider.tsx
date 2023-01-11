@@ -2,7 +2,6 @@ import { User } from '@prisma/client';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { baseUrl } from '../constants';
-import { env } from '../src/env';
 
 interface UserProviderProps {
 	children: React.ReactNode;
