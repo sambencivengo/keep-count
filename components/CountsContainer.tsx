@@ -82,14 +82,15 @@ export const CountsContainer: React.FC = ({}) => {
 				credentials: 'include',
 			});
 			if (!res.ok) {
-				toast({
-					description: 'Unable to get counts',
-					status: 'error',
-					variant: 'solid',
-					duration: 4000,
-					isClosable: true,
-					position: 'top',
-				});
+				// toast({ // TODO: use components instead of toasts
+				// 	description: 'Unable to get counts',
+				// 	status: 'error',
+				// 	variant: 'solid',
+				// 	duration: 4000,
+				// 	isClosable: true,
+				// 	position: 'top',
+				// });
+				console.error(res.text);
 				if (initialFetch) setIsLoading(false);
 				return;
 			}

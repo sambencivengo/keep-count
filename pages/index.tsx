@@ -6,11 +6,7 @@ import { useUser } from '../components/UserProvider';
 
 export default function Home() {
 	const { user } = useUser();
-	const router = useRouter();
 
-	if (!user) {
-		router.push('/login');
-	}
 	return (
 		<>
 			<Head>
