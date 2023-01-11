@@ -16,6 +16,7 @@ interface UserContextData {
 	signUp: (a: LoginAndSignUpArgs) => Promise<boolean>;
 	login: (a: LoginAndSignUpArgs) => Promise<boolean>;
 	logout: () => Promise<boolean>;
+	getMe: () => Promise<void>;
 }
 
 const UserContext = React.createContext<UserContextData>({
@@ -24,14 +25,16 @@ const UserContext = React.createContext<UserContextData>({
 	signUp: async () => false,
 	login: async () => false,
 	logout: async () => false,
+	getMe: async () => {},
 });
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(true);
 	const [user, setUser] = React.useState<User | null>(null);
 	const router = useRouter();
 
 	const getMe = async (): Promise<void> => {
+		setIsLoading(true);
 		try {
 			const res = await fetch(`/api/users/me`, {
 				method: 'GET',
@@ -40,14 +43,17 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
 			if (!res.ok) {
 				setUser(null);
+				setIsLoading(false);
 				router.push('/login');
 			}
 
 			const data = await res.json();
 			setUser(data);
+			setIsLoading(false);
 		} catch (error) {
 			setUser(null);
 			console.error(error);
+			setIsLoading(false);
 		}
 	};
 
@@ -136,7 +142,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
 	return (
 		<UserContext.Provider
-			value={{ signUp, logout, login, user, isLoading }}
+			value={{ signUp, logout, getMe, login, user, isLoading }}
 		>
 			{children}
 		</UserContext.Provider>

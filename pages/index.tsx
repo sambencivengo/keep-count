@@ -1,8 +1,16 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { CountsContainer } from '../components/CountsContainer';
+import { useUser } from '../components/UserProvider';
 
 export default function Home() {
+	const { user } = useUser();
+	const router = useRouter();
+
+	if (!user) {
+		router.push('/login');
+	}
 	return (
 		<>
 			<Head>
@@ -17,9 +25,7 @@ export default function Home() {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<main>
-				<CountsContainer />
-			</main>
+			<main>{user && <CountsContainer />}</main>
 		</>
 	);
 }

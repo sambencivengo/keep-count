@@ -25,10 +25,14 @@ import React from 'react';
 import Link from 'next/link';
 
 export const NavBar: React.FC = () => {
-	const { user, logout } = useUser();
+	const { user, logout, getMe } = useUser();
 	const { colorMode, toggleColorMode } = useColorMode();
 	const router = useRouter();
 	const toast = useToast();
+
+	React.useEffect(() => {
+		getMe();
+	});
 
 	const logoutUser = async () => {
 		const success = await logout();
