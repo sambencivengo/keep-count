@@ -85,7 +85,7 @@ export const CountsContainer: React.FC = ({}) => {
 
 	return (
 		<VStack gap={5}>
-			<Heading>Your Counts:</Heading>
+			<Heading>Counts</Heading>
 			<Wrap spacing={10} justify="center">
 				{counts &&
 					counts.map((count) => (

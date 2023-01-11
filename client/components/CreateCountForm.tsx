@@ -2,6 +2,7 @@ import {
 	Box,
 	Button,
 	FormControl,
+	FormHelperText,
 	FormLabel,
 	Heading,
 	Select,
@@ -147,6 +148,10 @@ export const CreateCountForm: React.FC<CreateCountFormProps> = ({}) => {
 												</option>
 											))}
 										</Select>
+										<FormHelperText>
+											Assign this count to an existing
+											group.
+										</FormHelperText>
 									</FormControl>
 								) : (
 									<InputField
