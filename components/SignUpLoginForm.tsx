@@ -67,17 +67,6 @@ export const SignUpLoginForm: React.FC<SignUpLoginFormProps> = ({
 							return;
 						}
 
-						toast({
-							description: `${
-								formPurpose === 'login' ? 'Log in' : 'Sign up'
-							} successful!`,
-							status: 'success',
-							variant: 'solid',
-							duration: 4000,
-							isClosable: true,
-							position: 'top',
-						});
-
 						router.push('/');
 					}}
 				>

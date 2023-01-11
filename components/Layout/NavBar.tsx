@@ -32,7 +32,7 @@ export const NavBar: React.FC = () => {
 
 	React.useEffect(() => {
 		getMe();
-	});
+	}, []);
 
 	const logoutUser = async () => {
 		const success = await logout();
