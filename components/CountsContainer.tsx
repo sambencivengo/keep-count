@@ -1,3 +1,4 @@
+import { AddIcon } from '@chakra-ui/icons';
 import {
 	VStack,
 	Heading,
@@ -5,8 +6,10 @@ import {
 	useToast,
 	Center,
 	Spinner,
+	Button,
 } from '@chakra-ui/react';
 import { Count } from '@prisma/client';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { CountCard } from './CountCard';
 
@@ -28,6 +31,7 @@ export const CountsContainer: React.FC = ({}) => {
 	>(null);
 	const [isLoading, setIsLoading] = React.useState(false);
 	const toast = useToast();
+	const router = useRouter();
 
 	const manipulateCount = async ({
 		buttonPurpose,
@@ -100,6 +104,32 @@ export const CountsContainer: React.FC = ({}) => {
 		getCounts();
 	}, []);
 
+	const renderCountsOrNoticeToAddCounts = counts ? (
+		<Wrap spacing={10} justify="center">
+			{counts &&
+				counts.map((count) => (
+					<CountCard
+						manipulateCount={manipulateCount}
+						key={count.id}
+						count={count}
+					/>
+				))}
+		</Wrap>
+	) : (
+		<VStack spacing={8}>
+			<Heading textAlign={'center'} size={'md'}>
+				Looks like you haven&apos;t created a Count yet, click the
+				button to get started!
+			</Heading>
+			<Button
+				onClick={() => router.push('/new-count')}
+				rightIcon={<AddIcon />}
+			>
+				New Count
+			</Button>
+		</VStack>
+	);
+
 	return (
 		<VStack gap={5}>
 			<Heading>Counts</Heading>
@@ -108,16 +138,7 @@ export const CountsContainer: React.FC = ({}) => {
 					<Spinner />
 				</Center>
 			) : (
-				<Wrap spacing={10} justify="center">
-					{counts &&
-						counts.map((count) => (
-							<CountCard
-								manipulateCount={manipulateCount}
-								key={count.id}
-								count={count}
-							/>
-						))}
-				</Wrap>
+				renderCountsOrNoticeToAddCounts
 			)}
 		</VStack>
 	);
