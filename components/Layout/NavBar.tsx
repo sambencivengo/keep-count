@@ -14,8 +14,10 @@ import {
 	Center,
 	Heading,
 	useToast,
+	HStack,
+	IconButton,
 } from '@chakra-ui/react';
-import { MoonIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { MoonIcon, SunIcon, HamburgerIcon, AddIcon } from '@chakra-ui/icons';
 import { colors } from '../../theme';
 import { useUser } from '../UserProvider';
 import { useRouter } from 'next/router';
@@ -71,9 +73,21 @@ export const NavBar: React.FC = () => {
 					justifyContent={'space-between'}
 				>
 					<Box>
-						<Link href={'/'}>
-							<Heading size="md">Keep Count</Heading>
-						</Link>
+						<HStack>
+							<Link href={'/'}>
+								<Heading size="md">Keep Count</Heading>
+							</Link>
+							<IconButton
+								size={'sm'}
+								rounded={'3xl'}
+								fontSize="lg"
+								aria-label="New Count Button"
+								icon={<AddIcon />}
+								onClick={() => {
+									router.push('/new-count');
+								}}
+							/>
+						</HStack>
 					</Box>
 
 					<Flex alignItems={'center'}>
