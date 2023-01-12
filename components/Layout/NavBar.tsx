@@ -78,7 +78,7 @@ export const NavBar: React.FC = () => {
 				>
 					<Box>
 						<HStack>
-							<Link href={'/'}>
+							<Link href={user ? '/' : '/login'}>
 								<Heading size="md">Keep Count</Heading>
 							</Link>
 							<IconButton

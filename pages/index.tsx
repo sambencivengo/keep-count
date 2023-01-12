@@ -1,3 +1,4 @@
+import { Center, Spinner } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -5,7 +6,7 @@ import { CountsContainer } from '../components/CountsContainer';
 import { useUser } from '../components/UserProvider';
 
 export default function Home() {
-	const { user } = useUser();
+	const { user, isLoading } = useUser();
 
 	return (
 		<>
@@ -21,7 +22,15 @@ export default function Home() {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<main>{user && <CountsContainer />}</main>
+			<main>
+				{isLoading && !user ? (
+					<Center>
+						<Spinner />
+					</Center>
+				) : (
+					<CountsContainer />
+				)}
+			</main>
 		</>
 	);
 }
