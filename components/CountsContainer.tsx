@@ -33,6 +33,12 @@ export const CountsContainer: React.FC = ({}) => {
 	const toast = useToast();
 	const router = useRouter();
 
+	const deleteCount = async (countId: number) => {
+		try {
+			const res = await fetch;
+		} catch (error) {}
+	};
+
 	const manipulateCount = async ({
 		buttonPurpose,
 		countId,
@@ -110,6 +116,7 @@ export const CountsContainer: React.FC = ({}) => {
 			{counts &&
 				counts.map((count) => (
 					<CountCard
+						deleteCount={deleteCount}
 						manipulateCount={manipulateCount}
 						key={count.id}
 						count={count}

@@ -1,4 +1,4 @@
-import { MinusIcon, AddIcon } from '@chakra-ui/icons';
+import { MinusIcon, AddIcon, SettingsIcon } from '@chakra-ui/icons';
 import {
 	Box,
 	VStack,
@@ -8,6 +8,8 @@ import {
 	useColorModeValue,
 	Tag,
 	Center,
+	Button,
+	HStack,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
@@ -20,12 +22,15 @@ import {
 interface CountCardProps {
 	count: CountWithGroupTitleAndId;
 	manipulateCount: (a: ManipulateCountProps) => Promise<void>;
+	deleteCount: (a: number) => Promise<void>;
 }
 
 export const CountCard: React.FC<CountCardProps> = ({
+	deleteCount,
 	count,
 	manipulateCount,
 }) => {
+	const [isEditing, setIsEditing] = React.useState(false);
 	const borderColor = useColorModeValue(
 		colors.darkBlueGrey,
 		colors.lightGrey
@@ -61,38 +66,57 @@ export const CountCard: React.FC<CountCardProps> = ({
 				key={count.id}
 			>
 				<VStack gap={3}>
-					<Heading textAlign="center" size={'md'}>
-						{count.title}
-					</Heading>
-					<Flex w="90%" justifyContent="space-between">
+					<HStack>
+						<Heading textAlign="center" size={'md'}>
+							{count.title}
+						</Heading>
 						<IconButton
-							onClick={() => {
-								setCountValueState(countValueState - 1);
-
-								manipulateCount({
-									buttonPurpose: 'subtract',
-									countId: count.id,
-								});
-							}}
-							fontSize={20}
-							aria-label="Minus Symbol Button"
-							icon={<MinusIcon />}
+							variant="ghost"
+							size={'sm'}
+							aria-label="Settings Button"
+							icon={<SettingsIcon />}
+							onClick={() => setIsEditing(!isEditing)}
 						/>
-						<Heading size="lg">{countValueState}</Heading>
-						<IconButton
-							onClick={() => {
-								setCountValueState(countValueState + 1);
+					</HStack>
+					{isEditing ? (
+						<Button
+							onClick={() => deleteCount(count.id)}
+							size={'sm'}
+							bgColor={colors.deepRed}
+						>
+							Delete
+						</Button>
+					) : (
+						<Flex w="90%" justifyContent="space-between">
+							<IconButton
+								onClick={() => {
+									setCountValueState(countValueState - 1);
 
-								manipulateCount({
-									buttonPurpose: 'add',
-									countId: count.id,
-								});
-							}}
-							fontSize={20}
-							aria-label="Plus Symbol Button"
-							icon={<AddIcon />}
-						/>
-					</Flex>
+									manipulateCount({
+										buttonPurpose: 'subtract',
+										countId: count.id,
+									});
+								}}
+								fontSize={20}
+								aria-label="Minus Symbol Button"
+								icon={<MinusIcon />}
+							/>
+							<Heading size="lg">{countValueState}</Heading>
+							<IconButton
+								onClick={() => {
+									setCountValueState(countValueState + 1);
+
+									manipulateCount({
+										buttonPurpose: 'add',
+										countId: count.id,
+									});
+								}}
+								fontSize={20}
+								aria-label="Plus Symbol Button"
+								icon={<AddIcon />}
+							/>
+						</Flex>
+					)}
 				</VStack>
 			</Box>
 		</Flex>
