@@ -60,6 +60,30 @@ const GroupId: NextPage = () => {
 		}
 	};
 
+	const deleteCount = async (countId: number) => {
+		try {
+			const res = await fetch(`/api/counts/${countId}`, {
+				method: 'DELETE',
+				credentials: 'include',
+			});
+			if (!res.ok) {
+				toast({
+					description: 'Unable to delete count',
+					status: 'error',
+					variant: 'solid',
+					duration: 4000,
+					isClosable: true,
+					position: 'top',
+				});
+				console.error('Unable to delete count');
+				return;
+			}
+			getGroupCounts();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	const getGroupCounts = async () => {
 		const res = await fetch(`/api/groups/${groupId}`, {
 			credentials: 'include',
@@ -98,6 +122,7 @@ const GroupId: NextPage = () => {
 									manipulateCount={manipulateCount}
 									key={count.id}
 									count={count}
+									deleteCount={deleteCount}
 								/>
 							))}
 					</Wrap>

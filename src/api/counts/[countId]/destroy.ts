@@ -1,8 +1,9 @@
 import { Handler } from 'express';
+
 import { prisma } from '../../../prismaClient';
 
 export const destroy: Handler = async (req, res) => {
-	const { countId } = req.query;
+	const { countId } = req.params;
 
 	try {
 		const count = await prisma.count.delete({

@@ -51,6 +51,7 @@ export const CountsContainer: React.FC = ({}) => {
 				console.error('Unable to delete count');
 				return;
 			}
+			getCounts();
 		} catch (error) {
 			console.error(error);
 		}
